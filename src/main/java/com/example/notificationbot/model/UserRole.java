@@ -1,4 +1,4 @@
-package com.example.notificationbot.modell;
+package com.example.notificationbot.model;
 
 public enum UserRole {
     ADMIN,

@@ -1,7 +1,7 @@
 package com.example.notificationbot.service;
 
 
-import com.example.notificationbot.modell.Task;
+import com.example.notificationbot.model.Task;
 import com.example.notificationbot.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

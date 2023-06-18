@@ -1,4 +1,4 @@
-package com.example.notificationbot.modell;
+package com.example.notificationbot.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

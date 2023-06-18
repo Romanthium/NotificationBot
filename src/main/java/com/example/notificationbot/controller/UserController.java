@@ -1,7 +1,7 @@
 package com.example.notificationbot.controller;
 
 
-import com.example.notificationbot.modell.User;
+import com.example.notificationbot.model.User;
 import com.example.notificationbot.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
