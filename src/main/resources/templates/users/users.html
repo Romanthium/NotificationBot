@@ -11,6 +11,7 @@
 <!--        <th>Telegram ID</th>-->
         <th>Name</th>
         <th>Login</th>
+        <th>User Role</th>
     </tr>
     <tr th:if="${#lists.isEmpty(users)}">
         <td colspan="7">No Users found. Add some...!</td>
@@ -20,6 +21,7 @@
 <!--        <td th:text="${user.getId()}"></td>-->
         <td th:text="${user.getName()}"></td>
         <td th:text="${user.getLogin()}"></td>
+        <td th:text="${user.getUserRole()}"></td>
         <td>
             <form th:action="@{/users/{id}/edit(id=${user.getId()})}">
                 <input type="submit" value="Edit"/>

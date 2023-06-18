@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Add new User</title>
@@ -19,6 +19,17 @@
     <div>
         <label for="login">Login</label>
         <input id="login" placeholder="Enter Login" required th:field="*{login}" type="text"/>
+    </div>
+
+    <div>
+        <div>User role:</div>
+        <th:block th:each="role : ${roles}">
+            <div>
+                <input id="#" th:type="radio" th:id="${role.name()}" th:field="*{userRole}"
+                       th:value="${role.name()}"/>
+                <label for="#" th:for="${role.name()}" th:text="${role.name()}">user_role</label>
+            </div>
+        </th:block>
     </div>
 
     <div>
