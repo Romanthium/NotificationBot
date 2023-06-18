@@ -1,6 +1,7 @@
 package com.example.notificationbot.modell;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class User {
 
     @NotEmpty
     @Column(unique = true)
+    @Email
     private String login;
 
     @NotEmpty
