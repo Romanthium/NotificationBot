@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new User</title>
+</head>
+<body>
+<form th:method="post" th:action="@{/users}" th:object="${user}">
+<!--    <div>-->
+<!--        <label for="tg-id">Telegram ID</label>-->
+<!--        <input id="tg-id" placeholder="Enter Telegram ID" required th:field="*{id}" type="text"/>-->
+<!--    </div>-->
+
+    <div>
+        <label for="tg-name">Name</label>
+        <input id="tg-name" placeholder="Enter User Telegram Name" required th:field="*{name}" type="text"/>
+    </div>
+
+    <div>
+        <label for="login">Login</label>
+        <input id="login" placeholder="Enter Login" required th:field="*{login}" type="text"/>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input id="password" placeholder="Enter Password" required th:field="*{password}" type="password"/>
+    </div>
+    <!--    toDo: add repeat password -->
+
+    <input type="submit" value="Add User">
+    <input type="reset" value="Reset">
+</form>
+</body>
+</html>
