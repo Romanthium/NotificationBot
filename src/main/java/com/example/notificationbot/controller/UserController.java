@@ -2,12 +2,15 @@ package com.example.notificationbot.controller;
 
 
 import com.example.notificationbot.model.User;
+import com.example.notificationbot.model.UserRole;
 import com.example.notificationbot.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,7 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("roles", List.of(UserRole.values()));
         return "users/new";
     }
 
@@ -38,6 +42,7 @@ public class UserController {
     public String edit(@PathVariable("id") long id, Model model) {
         try {
             model.addAttribute("user", userService.findById(id).orElseThrow(EntityNotFoundException::new)); // change for something custom
+            model.addAttribute("roles", List.of(UserRole.values()));
         } catch (EntityNotFoundException e) {
             return "redirect:/users";
         }
@@ -46,8 +51,10 @@ public class UserController {
 
     @PatchMapping("{id}")
     public String update(@ModelAttribute("user") User user,
-                         @PathVariable("id") long id) {
+                         @PathVariable("id") long id,
+                         Model model) {
 
+        model.addAttribute("roles", List.of(UserRole.values()));
         userService.update(id, user);
         return "redirect:/users";
     }
