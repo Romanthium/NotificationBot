@@ -4,6 +4,7 @@ package com.example.notificationbot.service;
 import com.example.notificationbot.model.User;
 import com.example.notificationbot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    @Autowired
+    private final EmailService emailService;
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
@@ -33,7 +36,20 @@ public class UserService {
     }
 
     public void save(User user) {
+        int verificationCode =(int) (Math.random() * 10000);
+        user.setCode(verificationCode);
         userRepository.save(user);
+        String message = " To successfully activate your account, please, " +
+                "enter your email address and this code: "  + user.getCode();
+        emailService.send(user.getLogin(), "Activation", message);
+    }
+
+    public boolean activateUser(Integer code) {
+        Optional<User> user = userRepository.findByCode(code);
+        if (user.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     public void update(Long id, User user) {

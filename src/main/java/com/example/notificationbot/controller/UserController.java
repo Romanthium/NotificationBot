@@ -33,10 +33,16 @@ public class UserController {
 
     @PostMapping()
     public String update(@ModelAttribute("user") User user) {
-
         userService.save(user);
         return "redirect:/users";
     }
+
+    @GetMapping("/activate/{code}")
+    public String activate(Model model, @PathVariable String code) {
+        boolean isActivated = userService.activateUser(Integer.parseInt(code));
+        return "login";
+    }
+
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") long id, Model model) {
