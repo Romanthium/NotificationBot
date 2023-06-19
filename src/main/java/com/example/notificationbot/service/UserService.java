@@ -39,8 +39,11 @@ public class UserService {
         int verificationCode =(int) (Math.random() * 10000);
         user.setCode(verificationCode);
         userRepository.save(user);
-        String message = " To successfully activate your account, please, " +
-                "enter your email address and this code: "  + user.getCode();
+        String message = String.format("Hello, %s! \n" +
+                "To successfully activate your account, please, visit link: http://localhost:8080/users/activate/%s",
+                user.getName(),
+                user.getCode()
+        );
         emailService.send(user.getLogin(), "Activation", message);
     }
 
