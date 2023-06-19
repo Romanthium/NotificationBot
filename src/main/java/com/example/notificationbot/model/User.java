@@ -28,6 +28,9 @@ public class User {
     @Email
     private String login;
 
+   // @NotEmpty
+    private Integer code;
+
     @NotEmpty
     private String password;
 
