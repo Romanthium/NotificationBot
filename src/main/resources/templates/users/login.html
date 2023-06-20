@@ -6,7 +6,6 @@
 </head>
 <body>
 <form th:method="post" th:action="@{/login}" th:object="${user}">
-
     <div>
         <label for="login">Login</label>
         <input id="login" placeholder="Enter email" required th:field="*{login}" type="text"/>
@@ -17,9 +16,12 @@
         <input id="password" placeholder="Enter Password" required th:field="*{password}" type="password"/>
     </div>
 
-
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
+
+    <div>
+        <a th:href="@{/users/new}">Registration new user</a>
+    </div>
 </form>
 </body>
 </html>
