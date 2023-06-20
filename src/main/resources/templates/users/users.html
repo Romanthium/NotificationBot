@@ -10,7 +10,7 @@
         <th>#</th>
 <!--        <th>Telegram ID</th>-->
         <th>Name</th>
-        <th>Login</th>
+        <th>Email</th>
         <th>User Role</th>
     </tr>
     <tr th:if="${#lists.isEmpty(users)}">
@@ -20,7 +20,7 @@
         <td th:text="${iter.index}+1"></td>
 <!--        <td th:text="${user.getId()}"></td>-->
         <td th:text="${user.getName()}"></td>
-        <td th:text="${user.getLogin()}"></td>
+        <td th:text="${user.getEmail()}"></td>
         <td th:text="${user.getUserRole()}"></td>
         <td>
             <form th:action="@{/users/{id}/edit(id=${user.getId()})}">

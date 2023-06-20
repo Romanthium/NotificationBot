@@ -31,8 +31,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> findByName(String login) {
-        return userRepository.findByLogin(login);
+    public Optional<User> findByName(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public void save(User user) {
@@ -44,7 +44,7 @@ public class UserService {
                 user.getName(),
                 user.getCode()
         );
-        emailService.send(user.getLogin(), "Activation", message);
+        emailService.send(user.getEmail(), "Activation", message);
     }
 
     public boolean activateUser(Integer code) {
