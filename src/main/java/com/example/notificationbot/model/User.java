@@ -26,7 +26,7 @@ public class User {
     @NotEmpty
     @Column(unique = true)
     @Email
-    private String login;
+    private String email;
 
    // @NotEmpty
     private Integer code;
