@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificationExecutor<Task> {
 
     static Specification<Task> topicContains(String keywordTopic) {
-        return (task, cq, cb) -> cb.like(cb.lower(task.get("topic")), "%" + keywordTopic + "%");
+        return (task, cq, cb) -> cb.like(cb.lower(task.get("topic")), "%" + keywordTopic.toLowerCase() + "%");
     }
 
     static Specification<Task> textContains(String keywordText) {
-        return (task, cq, cb) -> cb.like(cb.lower(task.get("text")), "%" + keywordText + "%");
+        return (task, cq, cb) -> cb.like(cb.lower(task.get("text")), "%" + keywordText.toLowerCase() + "%");
     }
 }
