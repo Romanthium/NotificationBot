@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,10 +43,14 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Task> search(String keyword) {
         if (keyword != null) {
-            return taskRepository.findAll(where(TaskRepository.topicContains(keyword)
-                    .or(TaskRepository.textContains(keyword))));
+            List<Task> tasks = new ArrayList<>();
+            tasks.addAll(taskRepository.findAll(where(TaskRepository.topicContains(keyword))));
+            tasks.addAll(taskRepository.findAll(where(TaskRepository.textContains(keyword))));
+
+            return tasks;
         }
 
         return findAll();
