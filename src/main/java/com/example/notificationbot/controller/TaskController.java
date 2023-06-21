@@ -4,9 +4,12 @@ import com.example.notificationbot.model.Task;
 import com.example.notificationbot.service.TaskService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -16,8 +19,11 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("tasks", taskService.findAll());
+    public String index(Model model, @Param("keyword") String keyword) {
+        List<Task> tasks = taskService.search(keyword);
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("keyword", keyword);
+
         return "tasks/tasks";
     }
 

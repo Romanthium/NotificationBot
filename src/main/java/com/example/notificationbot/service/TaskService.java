@@ -7,8 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.Specification.where;
 
 @RequiredArgsConstructor
 @Service
@@ -38,5 +41,18 @@ public class TaskService {
 
     public void delete(Long id) {
         taskRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Task> search(String keyword) {
+        if (keyword != null) {
+            List<Task> tasks = new ArrayList<>();
+            tasks.addAll(taskRepository.findAll(where(TaskRepository.topicContains(keyword))));
+            tasks.addAll(taskRepository.findAll(where(TaskRepository.textContains(keyword))));
+
+            return tasks;
+        }
+
+        return findAll();
     }
 }
