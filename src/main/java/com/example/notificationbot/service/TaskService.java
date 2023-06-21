@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -38,5 +40,14 @@ public class TaskService {
 
     public void delete(Long id) {
         taskRepository.deleteById(id);
+    }
+
+    public List<Task> search(String keyword) {
+        if (keyword != null) {
+            return taskRepository.findAll(where(TaskRepository.topicContains(keyword)
+                    .or(TaskRepository.textContains(keyword))));
+        }
+
+        return findAll();
     }
 }
