@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Tasks</title>
+    <script type="text/javascript">
+        function clearSearch() {
+            window.location = "[[@{/tasks}]]";
+        }
+    </script>
 </head>
 <body>
+<form th:method="get" th:action="@{/tasks}">
+    <label for="keyword">Search</label>
+    <input type="text" name="keyword" id="keyword" th:value="${keyword}" required/>
+    &nbsp;
+    <input type="submit" value="Search"/>
+    &nbsp;
+    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()"/>
+</form>
 <table>
     <tr>
         <th>#</th>
