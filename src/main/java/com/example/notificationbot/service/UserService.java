@@ -35,6 +35,11 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<User> findByTelegramUserId(Long id) {
+        return userRepository.findByTelegramUserId(id);
+    }
+
     public void save(User user) {
         int verificationCode =(int) (Math.random() * 10000);
         user.setCode(verificationCode);
