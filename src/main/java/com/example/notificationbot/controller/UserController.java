@@ -40,6 +40,7 @@ public class UserController {
     @GetMapping("/activate/{code}")
     public String activate(Model model, @PathVariable String code) {
         boolean isActivated = userService.activateUser(Integer.parseInt(code));
+
         return "redirect:/users/login";
     }
 
@@ -47,6 +48,13 @@ public class UserController {
     public String login(User user) {
         return "users/login";
         //"redirect:/tasks";
+    }
+
+
+    @PostMapping("/login")
+    public String postLogin(User user) {
+        return // "users/login";
+        "redirect:/tasks";
     }
 
     @GetMapping("/{id}/edit")

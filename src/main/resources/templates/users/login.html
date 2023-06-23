@@ -7,8 +7,8 @@
 <body>
 <form th:method="post" th:action="@{/login}" th:object="${user}">
     <div>
-        <label for="login">Login</label>
-        <input id="login" placeholder="Enter email" required th:field="*{email}" type="text"/>
+        <label for="email">Login</label>
+        <input id="email" placeholder="Enter email" required th:field="*{email}" type="email"/>
     </div>
 
     <div>
