@@ -34,10 +34,12 @@ public class User {
     @NotEmpty
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
     @Enumerated(value=EnumType.STRING)
     private UserRole userRole;
+
+    private Long telegramUserId;
 
 }

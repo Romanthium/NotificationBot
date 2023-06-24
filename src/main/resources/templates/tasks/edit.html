@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Task</title>
@@ -18,7 +18,8 @@
 
     <div>
         <label for="notification">Notification Time</label>
-        <input id="notification" th:field="*{notificationTime}" type="datetime-local"/>
+        <input th:disabled="${task.getUser().getTelegramUserId()==null}" id="notification"
+               th:field="*{notificationTime}" type="datetime-local" th:/>
     </div>
 
     <input type="submit" value="Save Task">
