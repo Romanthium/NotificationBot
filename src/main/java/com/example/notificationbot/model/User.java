@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user_data")
 public class User implements UserDetails {
-                                       // extends AbstractEntity?
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,6 +44,8 @@ public class User implements UserDetails {
     @Enumerated(value=EnumType.STRING)
     private UserRole userRole;
 
+    private Long telegramUserId;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userRole.getAuthority()));
@@ -56,21 +58,21 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
