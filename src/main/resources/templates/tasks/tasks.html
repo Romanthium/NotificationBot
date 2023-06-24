@@ -50,5 +50,10 @@
 <div>
     <a th:href="@{tasks/new}">Add new Task</a>
 </div>
+<div>
+    <form th:action="@{/logout}" th:method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</div>
 </body>
 </html>

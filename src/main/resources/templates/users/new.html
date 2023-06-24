@@ -5,12 +5,11 @@
     <title>Add new User</title>
 </head>
 <body>
-<form th:method="post" th:action="@{/users}" th:object="${user}">
+<form th:method="post" th:action="@{/users/new}" th:object="${user}">
     <div>
         <label for="tg-id">Telegram User ID</label>
         <input id="tg-id" placeholder="Enter Telegram User ID" th:field="*{telegramUserId}" type="text"/>
     </div>
-
     <div>
         <label for="tg-name">Name</label>
         <input id="tg-name" placeholder="Enter User Name" required th:field="*{name}" type="text"/>

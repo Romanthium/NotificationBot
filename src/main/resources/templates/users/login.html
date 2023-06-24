@@ -5,23 +5,28 @@
     <title>Login </title>
 </head>
 <body>
-<form th:method="post" th:action="@{/login}" th:object="${user}">
+<form method="post" action="/process_login" name="login_form">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <div>
-        <label for="login">Login</label>
-        <input id="login" placeholder="Enter email" required th:field="*{email}" type="text"/>
+        <label for="email">Login</label>
+        <input id="email" placeholder="Enter email" required name="username" type="email"/>
     </div>
 
     <div>
         <label for="password">Password</label>
-        <input id="password" placeholder="Enter Password" required th:field="*{password}" type="password"/>
+        <input id="password" placeholder="Enter Password" required name="password" type="password"/>
     </div>
 
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
-
-    <div>
-        <a th:href="@{/users/new}">Registration new user</a>
+    <div th:if="${param.error}" style="color: red">
+        <small>
+            Incorrect username or password
+        </small>
     </div>
 </form>
+<div>
+    <a th:href="@{/users/new}">Registration new user</a>
+</div>
 </body>
 </html>

@@ -55,4 +55,9 @@ public class TaskService {
 
         return findAll();
     }
+
+    @Transactional(readOnly = true)
+    public List<Task> findAllByUserId(Long userId) {
+        return taskRepository.findAllByUserId(userId);
+    }
 }

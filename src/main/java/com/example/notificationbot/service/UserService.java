@@ -1,6 +1,5 @@
 package com.example.notificationbot.service;
 
-
 import com.example.notificationbot.model.User;
 import com.example.notificationbot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,14 +30,16 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> findByName(String email) {
+    public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
 
     @Transactional(readOnly = true)
     public Optional<User> findByTelegramUserId(Long id) {
         return userRepository.findByTelegramUserId(id);
     }
+
 
     public void save(User user) {
         int verificationCode =(int) (Math.random() * 10000);
