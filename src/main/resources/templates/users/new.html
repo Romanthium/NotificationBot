@@ -6,11 +6,10 @@
 </head>
 <body>
 <form th:method="post" th:action="@{/users/new}" th:object="${user}">
-<!--    <div>-->
-<!--        <label for="tg-id">Telegram ID</label>-->
-<!--        <input id="tg-id" placeholder="Enter Telegram ID" required th:field="*{id}" type="text"/>-->
-<!--    </div>-->
-
+    <div>
+        <label for="tg-id">Telegram User ID</label>
+        <input id="tg-id" placeholder="Enter Telegram User ID" th:field="*{telegramUserId}" type="text"/>
+    </div>
     <div>
         <label for="tg-name">Name</label>
         <input id="tg-name" placeholder="Enter User Name" required th:field="*{name}" type="text"/>
@@ -25,9 +24,9 @@
         <div>User role:</div>
         <th:block th:each="role : ${roles}">
             <div>
-                <input id="#" th:type="radio" th:id="${role.name()}" th:field="*{userRole}"
+                <input id="role" type="radio" th:id="${role.name()}" th:field="*{userRole}"
                        th:value="${role.name()}"/>
-                <label for="#" th:for="${role.name()}" th:text="${role.name()}">user_role</label>
+                <label for="role" th:for="${role.name()}" th:text="${role.name()}">user_role</label>
             </div>
         </th:block>
     </div>
