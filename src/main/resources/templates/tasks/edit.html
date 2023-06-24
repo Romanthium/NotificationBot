@@ -18,7 +18,8 @@
 
     <div>
         <label for="notification">Notification Time</label>
-        <input id="notification" th:field="*{notificationTime}" type="datetime-local"/>
+        <input id="notification" th:field="*{notificationTime}" type="datetime-local"
+               th:disabled="${user.get().getTelegramUserId()==null}"/>
     </div>
 
     <input type="submit" value="Save Task">
