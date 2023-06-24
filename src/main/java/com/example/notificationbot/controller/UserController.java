@@ -6,6 +6,7 @@ import com.example.notificationbot.model.UserRole;
 import com.example.notificationbot.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ public class UserController {
 
     private final UserService userService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("users", userService.findAll());
@@ -31,8 +34,9 @@ public class UserController {
         return "users/new";
     }
 
-    @PostMapping()
+    @PostMapping("/new")
     public String update(@ModelAttribute("user") User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/users";
     }
@@ -45,17 +49,10 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(User user) {
+    public String loginPage() {
         return "users/login";
-        //"redirect:/tasks";
     }
 
-
-    @PostMapping("/login")
-    public String postLogin(User user) {
-        return // "users/login";
-        "redirect:/tasks";
-    }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") long id, Model model) {
@@ -83,7 +80,6 @@ public class UserController {
         userService.delete(id);
         return "redirect:/users";
     }
-
 
 }
 
