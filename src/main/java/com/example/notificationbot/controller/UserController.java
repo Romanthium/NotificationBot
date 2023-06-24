@@ -71,6 +71,7 @@ public class UserController {
                          Model model) {
 
         model.addAttribute("roles", List.of(UserRole.values()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.update(id, user);
         return "redirect:/users";
     }
