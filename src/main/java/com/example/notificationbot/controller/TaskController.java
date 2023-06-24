@@ -1,6 +1,7 @@
 package com.example.notificationbot.controller;
 
 import com.example.notificationbot.model.Task;
+import com.example.notificationbot.model.User;
 import com.example.notificationbot.model.UserRole;
 import com.example.notificationbot.service.TaskService;
 import com.example.notificationbot.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -45,7 +47,10 @@ public class TaskController {
     }
 
     @PostMapping()
-    public String update(@ModelAttribute("task") Task task) {
+    public String update(@ModelAttribute("task") Task task, HttpServletRequest request) {
+        Long userID = getUserID(request.getUserPrincipal());
+        Optional<User> userById = userService.findById(userID);
+        task.setUser(userById.orElseThrow(EntityNotFoundException::new));
         taskService.save(task);
         return "redirect:/tasks";
     }
@@ -63,8 +68,10 @@ public class TaskController {
 
     @PatchMapping("{id}")
     public String update(@ModelAttribute("task") Task task,
-                         @PathVariable("id") long id) {
-
+                         @PathVariable("id") long id, HttpServletRequest request) {
+        Long userID = getUserID(request.getUserPrincipal());
+        Optional<User> userById = userService.findById(userID);
+        task.setUser(userById.orElseThrow(EntityNotFoundException::new));
         taskService.update(id, task);
         return "redirect:/tasks";
     }
