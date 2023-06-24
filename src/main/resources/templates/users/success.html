@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>You have successfully logged in </title>
+</head>
+<body>
+<form th:method="get" th:action="@{/success}" th:object="${user}">
+    <div>
+        <label >You have successfully logged in</label>
+    </div>
+
+    <div>
+        <a th:href="@{/tasks}">Go to the tasks</a>
+    </div>
+</form>
+</body>
+</html>

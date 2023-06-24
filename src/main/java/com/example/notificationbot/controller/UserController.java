@@ -46,7 +46,26 @@ public class UserController {
     @GetMapping("/login")
     public String login(User user) {
         return "users/login";
-        //"redirect:/tasks";
+       // "redirect:/users/success";
+    }
+
+    @PostMapping("/login")
+    public String success(@ModelAttribute("user") User user) {
+        return "redirect:/users/success";
+    }
+
+//    @PostMapping("/login")
+//    public String success(@ModelAttribute("user") User user,  Model model) {
+//        try {
+//            model.addAttribute("user", userService.findByEmail(user.getEmail()).orElseThrow(EntityNotFoundException::new));
+//        } catch (EntityNotFoundException e) {
+//            return "users/login";
+//        }
+//        return "redirect:/users/success";
+//    }
+    @GetMapping("/success")
+    public String successPage(User user) {
+        return "users/success";
     }
 
     @GetMapping("/{id}/edit")
@@ -75,8 +94,6 @@ public class UserController {
         userService.delete(id);
         return "redirect:/users";
     }
-
-
 }
 
 

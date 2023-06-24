@@ -18,8 +18,7 @@
 
     <div>
         <label for="notification">Notification Time</label>
-        <input th:disabled="${task.getUser().getTelegramUserId()==null}" id="notification"
-               placeholder="Enter notification time" th:field="*{notificationTime}" type="datetime-local"/>
+        <input  id="notification" placeholder="Enter notification time" th:field="*{notificationTime}" type="datetime-local"/>
     </div>
 
     <input type="submit" value="Create Task">
