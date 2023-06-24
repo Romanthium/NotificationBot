@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -28,22 +27,22 @@ public class SecurityConfig {
 
         AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService());
-       // AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
-        httpSecurity// //csrf().disable()
-                .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/users/activate/**").permitAll()
-                                .requestMatchers("/users/new").permitAll()
-                                .requestMatchers("/users").hasRole(UserRole.ADMIN.name())
-
-                                //.requestMatchers("/users/login/**").permitAll()
-                                .requestMatchers("/tasks").authenticated()
-                                .requestMatchers("/tasks/**").authenticated()
+        httpSecurity
+//                .csrf().disable()
+                .authenticationManager(authenticationManager)
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers("/users/login", "/users/activate/**", "/users/new").permitAll()
+                                .requestMatchers("/tasks/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.USER.name())
+                                .requestMatchers("/users/**").hasRole(UserRole.ADMIN.name())
+                                .anyRequest().authenticated()
 
                 ).formLogin(
                         form -> form
-                                .loginPage("/users/login").permitAll()
-                                .loginProcessingUrl("/tasks")
+                                .loginPage("/users/login")
+                                .loginProcessingUrl("/process_login")
                                 .defaultSuccessUrl("/tasks", true)
                                 .failureUrl("/users/login?error")
                                 .permitAll()
@@ -51,12 +50,14 @@ public class SecurityConfig {
                         logout -> logout
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/users/login")
-//                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                                .invalidateHttpSession(true)
-//                                .clearAuthentication(true)
-//                                .deleteCookies("JSESSIONID")
-//                                .logoutSuccessUrl("/login")
+////                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+////                                .invalidateHttpSession(true)
+////                                .clearAuthentication(true)
+////                                .deleteCookies("JSESSIONID")
+////                                .logoutSuccessUrl("/login")
                 );
+
+
         return httpSecurity.build();
     }
 
