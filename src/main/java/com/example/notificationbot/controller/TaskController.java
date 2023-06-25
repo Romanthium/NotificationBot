@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,13 +31,15 @@ public class TaskController {
     public String index(Model model, @Param("keyword") String keyword, HttpServletRequest request) {
         List<Task> tasks = taskService.search(keyword);
         if (!request.isUserInRole(UserRole.ADMIN.getAuthority())) {
-            model.addAttribute("tasks", taskService.findAllByUserId(getUserID(request.getUserPrincipal())));
+            Long userID = getUserID(request.getUserPrincipal());
+            List<Task> collect = tasks.stream()
+                    .filter(task -> task.getUser().getId().equals(userID))
+                    .collect(Collectors.toList());
+            model.addAttribute("tasks", collect);
         } else {
             model.addAttribute("tasks", tasks);
-
         }
         model.addAttribute("keyword", keyword);
-
         return "tasks/tasks";
     }
 
