@@ -43,7 +43,7 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/users/login")
                                 .loginProcessingUrl("/process_login")
-                                .defaultSuccessUrl("/tasks", true)
+                                .defaultSuccessUrl("/", true)
                                 .failureUrl("/users/login?error")
                                 .permitAll()
                 ).logout(
