@@ -38,13 +38,14 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
     @Enumerated(value=EnumType.STRING)
     private UserRole userRole;
 
     private Long telegramUserId;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,4 +76,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
