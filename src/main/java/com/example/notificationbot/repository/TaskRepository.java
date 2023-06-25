@@ -20,4 +20,8 @@ public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificat
     }
 
     List<Task> findAllByUserId(Long userId);
+
+    static Specification<Task> userId(Long userId) {
+        return (task, cq, cb) -> cb.equal((task.get("user")), userId);
+    }
 }

@@ -57,6 +57,21 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
+    public List<Task> search(String keyword, Long userId) {
+        if (keyword != null) {
+            List<Task> tasks = new ArrayList<>();
+            tasks.addAll(taskRepository.findAll(where(TaskRepository.topicContains(keyword))
+                    .and(where(TaskRepository.userId(userId)))));
+            tasks.addAll(taskRepository.findAll(where(TaskRepository.textContains(keyword))
+                    .and(where(TaskRepository.userId(userId)))));
+
+            return tasks;
+        }
+
+        return taskRepository.findAll(where(TaskRepository.userId(userId)));
+    }
+
+    @Transactional(readOnly = true)
     public List<Task> findAllByUserId(Long userId) {
         return taskRepository.findAllByUserId(userId);
     }

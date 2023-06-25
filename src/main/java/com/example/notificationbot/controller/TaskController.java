@@ -30,7 +30,7 @@ public class TaskController {
     public String index(Model model, @Param("keyword") String keyword, HttpServletRequest request) {
         List<Task> tasks = taskService.search(keyword);
         if (!request.isUserInRole(UserRole.ADMIN.getAuthority())) {
-            model.addAttribute("tasks", taskService.findAllByUserId(getUserID(request.getUserPrincipal())));
+            model.addAttribute("tasks", taskService.search(keyword, getUserID(request.getUserPrincipal())));      // taskService.findAllByUserId(getUserID(request.getUserPrincipal())));
         } else {
             model.addAttribute("tasks", tasks);
 
