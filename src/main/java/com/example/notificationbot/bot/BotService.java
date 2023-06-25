@@ -113,7 +113,8 @@ public class BotService extends TelegramLongPollingBot {
         for (User user : users) {
             Set<Task> tasks = user.getTasks();
             for (Task task : tasks) {
-                if (task.getNotificationTime().truncatedTo(ChronoUnit.MINUTES).equals(current)) {
+                if (task.getNotificationTime() != null
+                        && task.getNotificationTime().truncatedTo(ChronoUnit.MINUTES).equals(current)) {
                     System.out.println(task.getText() + " " + user.getTelegramUserId());
                     prepareAndSendMessage(user.getTelegramUserId(), task.getText());
                 }
