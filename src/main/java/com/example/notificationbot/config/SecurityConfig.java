@@ -30,7 +30,6 @@ public class SecurityConfig {
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
         httpSecurity
-//                .csrf().disable()
                 .authenticationManager(authenticationManager)
                 .authorizeHttpRequests(authorize ->
                         authorize
@@ -50,11 +49,6 @@ public class SecurityConfig {
                         logout -> logout
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/users/login")
-////                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-////                                .invalidateHttpSession(true)
-////                                .clearAuthentication(true)
-////                                .deleteCookies("JSESSIONID")
-////                                .logoutSuccessUrl("/login")
                 );
 
 
