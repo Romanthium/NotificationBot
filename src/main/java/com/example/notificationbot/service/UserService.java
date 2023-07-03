@@ -3,7 +3,6 @@ package com.example.notificationbot.service;
 import com.example.notificationbot.model.User;
 import com.example.notificationbot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    @Autowired
+
     private final EmailService emailService;
 
     @Transactional(readOnly = true)
@@ -55,10 +54,7 @@ public class UserService {
 
     public boolean activateUser(Integer code) {
         Optional<User> user = userRepository.findByCode(code);
-        if (user.isEmpty()) {
-            return false;
-        }
-        return true;
+        return user.isPresent();
     }
 
     public void update(Long id, User user) {
