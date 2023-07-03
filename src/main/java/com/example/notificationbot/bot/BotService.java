@@ -41,7 +41,7 @@ public class BotService extends TelegramLongPollingBot {
             switch (messageText) {
                 case ("/start") -> {
                     String firstName = update.getMessage().getChat().getFirstName();
-                    if (!userExist(userId)) {
+                    if (!isUserExist(userId)) {
                         startCommandReceived(chatId, firstName);
                         sendMessage(chatId, "User with Id " + userId + " was successfully registered");
                         sendMessage(chatId, showLoginData(userId));
@@ -50,7 +50,7 @@ public class BotService extends TelegramLongPollingBot {
                     }
                 }
                 case ("/info") -> {
-                    if (!userExist(userId)) {
+                    if (!isUserExist(userId)) {
                         sendMessage(chatId, "You aren't registered yet, try with '/start' command");
                     } else {
                         sendMessage(chatId, showLoginData(userId));
@@ -62,7 +62,7 @@ public class BotService extends TelegramLongPollingBot {
         }
     }
 
-    private boolean userExist(long userId) {
+    private boolean isUserExist(long userId) {
         return userService.findByTelegramUserId(userId).isPresent();
     }
 
